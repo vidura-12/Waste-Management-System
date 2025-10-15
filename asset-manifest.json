@@ -1,0 +1,33 @@
+{
+  "files": {
+    "main.css": "/vidura-12/Waste-Management-System/static/css/main.e1fe42f7.css",
+    "main.js": "/vidura-12/Waste-Management-System/static/js/main.dafc1d61.js",
+    "static/js/213.dc701bfb.chunk.js": "/vidura-12/Waste-Management-System/static/js/213.dc701bfb.chunk.js",
+    "static/js/455.efcb66f9.chunk.js": "/vidura-12/Waste-Management-System/static/js/455.efcb66f9.chunk.js",
+    "static/media/schedulebg.png": "/vidura-12/Waste-Management-System/static/media/schedulebg.ae9a728bd02e7faf8c44.png",
+    "static/media/hero.jpg": "/vidura-12/Waste-Management-System/static/media/hero.06a954127714286dcd60.jpg",
+    "static/media/card2.png": "/vidura-12/Waste-Management-System/static/media/card2.faf3aa990afea5d3bd09.png",
+    "static/media/card1.png": "/vidura-12/Waste-Management-System/static/media/card1.1cade81a2f2f972034bc.png",
+    "static/media/card3.png": "/vidura-12/Waste-Management-System/static/media/card3.3d3de2178e41e304ca4b.png",
+    "static/media/bot.png": "/vidura-12/Waste-Management-System/static/media/bot.fc778c082e8f3e9ea686.png",
+    "static/media/contact.png": "/vidura-12/Waste-Management-System/static/media/contact.a813ecca7fc6672eef60.png",
+    "static/media/logo.png": "/vidura-12/Waste-Management-System/static/media/logo.1683abb8879ff42b5254.png",
+    "static/media/cardbg3.png": "/vidura-12/Waste-Management-System/static/media/cardbg3.04c852968f92dc8cc370.png",
+    "static/media/cardbg1.png": "/vidura-12/Waste-Management-System/static/media/cardbg1.1a710860047931b50a47.png",
+    "static/media/cardbg2.png": "/vidura-12/Waste-Management-System/static/media/cardbg2.40dae887e74a823e4d71.png",
+    "static/media/avatar.png": "/vidura-12/Waste-Management-System/static/media/avatar.3c252742f38cd1686f8c.png",
+    "static/media/slick.svg": "/vidura-12/Waste-Management-System/static/media/slick.2630a3e3eab21c607e21.svg",
+    "static/media/slick.eot": "/vidura-12/Waste-Management-System/static/media/slick.a4e97f5a2a64f0ab1323.eot",
+    "static/media/slick.ttf": "/vidura-12/Waste-Management-System/static/media/slick.c94f7671dcc99dce43e2.ttf",
+    "static/media/slick.woff": "/vidura-12/Waste-Management-System/static/media/slick.295183786cd8a1389865.woff",
+    "index.html": "/vidura-12/Waste-Management-System/index.html",
+    "main.e1fe42f7.css.map": "/vidura-12/Waste-Management-System/static/css/main.e1fe42f7.css.map",
+    "main.dafc1d61.js.map": "/vidura-12/Waste-Management-System/static/js/main.dafc1d61.js.map",
+    "213.dc701bfb.chunk.js.map": "/vidura-12/Waste-Management-System/static/js/213.dc701bfb.chunk.js.map",
+    "455.efcb66f9.chunk.js.map": "/vidura-12/Waste-Management-System/static/js/455.efcb66f9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e1fe42f7.css",
+    "static/js/main.dafc1d61.js"
+  ]
+}
