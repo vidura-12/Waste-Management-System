@@ -32,7 +32,8 @@
     "slick-carousel": "^1.8.1",
     "web-vitals": "^2.1.4"
   },
-  "homepage": "https://github.com/vidura-12/Waste-Management-System",
+  "homepage": "https://vidura-12.github.io/Waste-Management-System"
+,
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
