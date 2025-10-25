@@ -99,10 +99,195 @@ const WasteLevels = () => {
         }
     ];
 
+    const generatePDF = () => {
+        // Create a new window for PDF
+        const pdfWindow = window.open('', '_blank');
+        const currentDate = new Date().toLocaleDateString();
+        
+        const pdfContent = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>Waste Management Report</title>
+                <style>
+                    body { 
+                        font-family: Arial, sans-serif; 
+                        margin: 40px; 
+                        color: #333;
+                    }
+                    .header { 
+                        text-align: center; 
+                        border-bottom: 3px solid #10b981;
+                        padding-bottom: 20px;
+                        margin-bottom: 30px;
+                    }
+                    .header h1 { 
+                        color: #059669; 
+                        font-size: 32px;
+                        margin: 0;
+                    }
+                    .header p { 
+                        color: #6b7280; 
+                        font-size: 16px;
+                    }
+                    .summary { 
+                        background: #f9fafb; 
+                        padding: 25px; 
+                        border-radius: 12px;
+                        margin-bottom: 30px;
+                        border-left: 4px solid #10b981;
+                    }
+                    .stats-grid { 
+                        display: grid; 
+                        grid-template-columns: repeat(4, 1fr); 
+                        gap: 15px; 
+                        margin-bottom: 30px;
+                    }
+                    .stat-card { 
+                        background: white; 
+                        padding: 20px; 
+                        border-radius: 8px; 
+                        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                        text-align: center;
+                        border-top: 4px solid #10b981;
+                    }
+                    .waste-card { 
+                        margin-bottom: 25px; 
+                        padding: 20px; 
+                        border-radius: 8px;
+                        background: #f8fafc;
+                        border-left: 4px solid;
+                    }
+                    .organic { border-left-color: #10b981; }
+                    .recyclable { border-left-color: #3b82f6; }
+                    .ewaste { border-left-color: #8b5cf6; }
+                    .progress-bar { 
+                        background: #e5e7eb; 
+                        height: 8px; 
+                        border-radius: 4px;
+                        margin: 10px 0;
+                        overflow: hidden;
+                    }
+                    .progress-fill { 
+                        height: 100%; 
+                        border-radius: 4px;
+                    }
+                    .impact-section { 
+                        background: linear-gradient(135deg, #059669, #047857); 
+                        color: white; 
+                        padding: 30px; 
+                        border-radius: 12px;
+                        margin: 30px 0;
+                    }
+                    .footer { 
+                        text-align: center; 
+                        margin-top: 40px; 
+                        color: #6b7280;
+                        font-size: 14px;
+                    }
+                    .trend-up { color: #dc2626; }
+                    .trend-down { color: #16a34a; }
+                </style>
+            </head>
+            <body>
+                <div class="header">
+                    <h1>Waste Management Report</h1>
+                    <p>Generated on ${currentDate} | Customer ID: ${cusID}</p>
+                </div>
+
+                <div class="summary">
+                    <h2>Executive Summary</h2>
+                    <p>Total waste generated: <strong>${totalWaste.toFixed(1)} kg</strong></p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Total Waste</h3>
+                        <div style="font-size: 24px; font-weight: bold; color: #1f2937;">${totalWaste.toFixed(1)} kg</div>
+                    </div>
+                    <div class="stat-card" style="border-top-color: #10b981;">
+                        <h3>Organic</h3>
+                        <div style="font-size: 24px; font-weight: bold; color: #059669;">${((wasteLevels.organic / totalWaste) * 100).toFixed(0)}%</div>
+                        <div>${wasteLevels.organic} kg</div>
+                    </div>
+                    <div class="stat-card" style="border-top-color: #3b82f6;">
+                        <h3>Recyclable</h3>
+                        <div style="font-size: 24px; font-weight: bold; color: #3b82f6;">${((wasteLevels.recyclable / totalWaste) * 100).toFixed(0)}%</div>
+                        <div>${wasteLevels.recyclable} kg</div>
+                    </div>
+                    <div class="stat-card" style="border-top-color: #8b5cf6;">
+                        <h3>E-Waste</h3>
+                        <div style="font-size: 24px; font-weight: bold; color: #8b5cf6;">${((wasteLevels.eWaste / totalWaste) * 100).toFixed(0)}%</div>
+                        <div>${wasteLevels.eWaste} kg</div>
+                    </div>
+                </div>
+
+                <h2>Waste Breakdown</h2>
+                ${wasteTypes.map(waste => {
+                    const change = calculateChange(waste.value, waste.previous);
+                    const progress = Math.min(100, (waste.value / 30) * 100);
+                    return `
+                        <div class="waste-card ${waste.id}">
+                            <h3>${waste.name}</h3>
+                            <p>${waste.description}</p>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin: 15px 0;">
+                                <div>
+                                    <div style="font-size: 28px; font-weight: bold; color: ${waste.id === 'organic' ? '#059669' : waste.id === 'recyclable' ? '#3b82f6' : '#8b5cf6'};">
+                                        ${waste.value} kg
+                                    </div>
+                                    <div style="color: ${change.isIncrease ? '#dc2626' : '#16a34a'};">
+                                        ${change.isIncrease ? '↑' : '↓'} ${change.percentage}% from previous period
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div style="display: flex; justify-content: between; margin-bottom: 5px;">
+                                    <span>Progress to goal</span>
+                                    <span>${progress.toFixed(0)}%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: ${progress}%; background: ${waste.id === 'organic' ? '#10b981' : waste.id === 'recyclable' ? '#3b82f6' : '#8b5cf6'};"></div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('')}
+
+                <div class="impact-section">
+                    <h2 style="color: white; margin-top: 0;">Environmental Impact</h2>
+                    <p>By properly segregating and recycling ${wasteLevels.recyclable.toFixed(1)}kg of waste, you've helped save approximately:</p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+                        <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 8px;">
+                            <div style="font-size: 24px; font-weight: bold;">${(totalWaste * 0.8).toFixed(0)} kg</div>
+                            <div>CO₂ Emissions Saved</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 8px;">
+                            <div style="font-size: 24px; font-weight: bold;">${(wasteLevels.recyclable * 1.2).toFixed(0)}</div>
+                            <div>Trees Saved</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer">
+                    <p>Thank you for contributing to a sustainable environment!</p>
+                    <p>Generated by Waste Management System</p>
+                </div>
+            </body>
+            </html>
+        `;
+
+        pdfWindow.document.write(pdfContent);
+        pdfWindow.document.close();
+        
+        // Wait for content to load then print
+        setTimeout(() => {
+            pdfWindow.print();
+        }, 250);
+    };
+
     const handleDownloadReport = () => {
         console.log('Downloading waste report...', wasteLevels);
-        // Integrate your PDF download logic here
-        // <PDFDownloadLink document={<WasteReportPDF wasteLevels={wasteLevels} />} fileName="WasteReport.pdf" />
+        generatePDF();
     };
 
     if (loading) {

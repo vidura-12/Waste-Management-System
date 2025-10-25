@@ -1,8 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders the main app page with the brand name', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  
+  // Use getAllByText since there are multiple elements with "Green Bin"
+  const brandElements = screen.getAllByText(/green bin/i);
+  expect(brandElements.length).toBeGreaterThan(0);
+  expect(brandElements[0]).toBeInTheDocument();
 });
